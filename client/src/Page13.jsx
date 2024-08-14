@@ -1,152 +1,82 @@
-// src/Page1.js
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Container,
-  Typography,
   Paper,
-  MenuItem,
-  Select,
-  FormControl,
-  InputLabel,
+  Typography,
 } from "@mui/material";
 import ApexCharts from "react-apexcharts";
+import axios from "axios";
 
-function Page13() {
-  const [chartType, setChartType] = useState("line");
-
-  // Data for line, bar, and area charts
-  const lineBarAreaData = {
-    series: [
-      {
-        name: "Active Users",
-        data: [30, 40, 35, 50, 49, 60, 70, 91, 125],
-      },
-      {
-        name: "Session Duration",
-        data: [10, 20, 30, 40, 50, 60, 70, 80, 90],
-      },
-      {
-        name: "Frequency of Use",
-        data: [5, 10, 15, 20, 25, 30, 35, 40, 45],
-      },
-      {
-        name: "Retention Rates",
-        data: [80, 70, 60, 50, 40, 30, 20, 10, 5],
-      },
-    ],
+const Page13 = () => {
+  const [chartData, setChartData] = useState({
+    series: [],
     options: {
       chart: {
-        type: chartType,
+        type: 'line',
+        height: 600,
+      },
+      stroke: {
+        curve: 'smooth',
+        width: 2
+      },
+      title: {
+        text: '',
+        align: 'center',
       },
       xaxis: {
-        categories: [
-          "Jan",
-          "Feb",
-          "Mar",
-          "Apr",
-          "May",
-          "Jun",
-          "Jul",
-          "Aug",
-          "Sep",
-        ],
+        categories: [],
+        title: {
+          text: 'Learners'
+        }
       },
-      title: {
-        text: "User Engagement Metrics",
-        align: "left",
+      yaxis: {
+        title: {
+          text: 'Number of Activities'
+        }
       },
+      dataLabels: {
+        enabled: true
+      },
+      markers: {
+        size: 5
+      },
+      grid: {
+        borderColor: '#e0e0e0',
+        strokeDashArray: 3,
+      }
     },
-  };
+  });
 
-  // Data for pie and donut charts
-  const pieDonutData = {
-    series: [30, 20, 15, 35],
-    options: {
-      chart: {
-        type: chartType,
-      },
-      labels: [
-        "Active Users",
-        "Session Duration",
-        "Frequency of Use",
-        "Retention Rates",
-      ],
-      title: {
-        text: "User Engagement Metrics",
-        align: "left",
-      },
-    },
-  };
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('http://192.168.29.50:8081/api/gegraph_top5mostactivelearners');
+        const data = response.data.top5mostactivelearners;
 
-  // Data for radar chart
-  const radarData = {
-    series: [
-      {
-        name: "User Metrics",
-        data: [80, 50, 30, 40, 100, 20],
-      },
-    ],
-    options: {
-      chart: {
-        type: "radar",
-      },
-      title: {
-        text: "Radar Chart",
-        align: "left",
-      },
-      labels: [
-        "Active Users",
-        "Session Duration",
-        "Frequency of Use",
-        "Retention Rates",
-      ],
-    },
-  };
+        const userNames = data.map(item => item.User_Name);
+        const activities = data.map(item => parseInt(item.Number_of_Activities, 10));
 
-  // Data for heatmap chart
-  const heatmapData = {
-    series: [
-      {
-        name: "Metric 1",
-        data: [80, 50, 30, 40],
-      },
-      {
-        name: "Metric 2",
-        data: [60, 40, 70, 50],
-      },
-      {
-        name: "Metric 3",
-        data: [30, 60, 80, 20],
-      },
-    ],
-    options: {
-      chart: {
-        type: "heatmap",
-      },
-      title: {
-        text: "Heatmap Chart",
-        align: "left",
-      },
-      xaxis: {
-        categories: [
-          "Active Users",
-          "Session Duration",
-          "Frequency of Use",
-          "Retention Rates",
-        ],
-      },
-    },
-  };
+        setChartData({
+          ...chartData,
+          series: [{
+            name: 'Number of Activities',
+            data: activities,
+          }],
+          options: {
+            ...chartData.options,
+            xaxis: {
+              ...chartData.options.xaxis,
+              categories: userNames
+            }
+          }
+        });
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
 
-  // Select the appropriate data based on chart type
-  const chartData =
-    chartType === "pie" || chartType === "donut"
-      ? pieDonutData
-      : chartType === "radar"
-        ? radarData
-        : chartType === "heatmap"
-          ? heatmapData
-          : lineBarAreaData;
+    fetchData();
+  }, []);
 
   return (
     <Container
@@ -155,18 +85,21 @@ function Page13() {
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        minHeight: "80%",
+        minHeight: "90vh",
         backgroundColor: "background.default",
       }}
     >
       <Paper
         elevation={5}
-        style={{
-          padding: "20px",
+        sx={{
+          padding: { xs: 2, sm: 3, md: 4 },
           width: "100%",
-          maxWidth: "800px",
-          marginTop: "20px",
+          maxWidth: "1200px", // Set a maximum width if needed
+          minHeight: "100%",
           position: "relative",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
         }}
       >
         <Typography
@@ -179,39 +112,30 @@ function Page13() {
             color: "#E2DED0",
             padding: "5px 10px",
             borderBottomLeftRadius: ".5rem",
+            fontSize: { xs: "0.75rem", sm: "1rem" },
           }}
         >
-          Apex React
+          ApexCharts
         </Typography>
-        <Typography variant="h4" align="center" style={{ marginTop: "20px" }}>
-          User Engagement Metrics
+        <Typography
+          variant="h4"
+          align="center"
+          sx={{ marginTop: { xs: 1, sm: 2, md: 3 } }}
+        >
+          Top 5 Most Active Learners
         </Typography>
-        <FormControl fullWidth style={{ marginTop: ".5rem" }}>
-          <InputLabel>Chart Type</InputLabel>
-          <Select
-            value={chartType}
-            onChange={(e) => setChartType(e.target.value)}
-            label="Chart Type"
-          >
-            <MenuItem value="line">Line</MenuItem>
-            <MenuItem value="bar">Bar</MenuItem>
-            <MenuItem value="area">Area</MenuItem>
-            <MenuItem value="pie">Pie</MenuItem>
-            <MenuItem value="donut">Donut</MenuItem>
-            <MenuItem value="radar">Radar</MenuItem>
-          </Select>
-        </FormControl>
-        <div style={{ marginTop: "20px" }}>
+        <div style={{ width: '100%' }}>
           <ApexCharts
             options={chartData.options}
             series={chartData.series}
-            type={chartType}
-
+            type="line"
+            height={600}
+            width="100%" // Ensure the chart takes up the full width of the container
           />
         </div>
       </Paper>
     </Container>
   );
-}
+};
 
 export default Page13;
