@@ -16,8 +16,16 @@ import Page8 from "./Page8";
 import Page9 from "./Page9";
 import Page10 from "./Page10";
 import Page11 from "./Page11";
+
+// API Data from here
 import Page12 from "./Page12";
 import Page13 from "./Page13";
+import Page14 from "./Page14";
+import Page15 from "./Page15";
+import Page16 from "./Page16";
+import Page17 from "./Page17";
+import Page18 from "./Page18";
+
 
 function App() {
   return (
@@ -38,7 +46,13 @@ function App() {
           <Route path="Page11" element={<Page11 />} />
           <Route path="Page12" element={<Page12 />} />
           <Route path="Page13" element={<Page13 />} />
+          <Route path="Page14" element={<Page14 />} />
+          <Route path="Page15" element={<Page15 />} />
+          <Route path="Page16" element={<Page16 />} />
+          <Route path="Page17" element={<Page17 />} />
+          <Route path="Page18" element={<Page18 />} />
         </Route>
+        
       </Routes>
     </Router>
   );
