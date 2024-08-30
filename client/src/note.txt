@@ -1,0 +1,750 @@
+// Function to aggregate data by age group
+function aggregateDataByAgeGroup(data) {
+    const ageGroupData = {};
+
+    data.forEach(item => {
+        const ageGroup = item.User_Age;
+        if (!ageGroupData[ageGroup]) {
+            ageGroupData[ageGroup] = {
+                strongWords: 0,
+                mediumWords: 0,
+                weakWords: 0
+            };
+        }
+        ageGroupData[ageGroup].strongWords += item.Total_no_of_Strong_Words ? parseInt(item.Total_no_of_Strong_Words) : 0;
+        ageGroupData[ageGroup].mediumWords += item.Total_no_of_Medium_Words ? parseInt(item.Total_no_of_Medium_Words) : 0;
+        ageGroupData[ageGroup].weakWords += item.Total_no_of_Weak_Words ? parseInt(item.Total_no_of_Weak_Words) : 0;
+    });
+
+    return Object.keys(ageGroupData).map(ageGroup => ({
+        ageGroup,
+        ...ageGroupData[ageGroup]
+    }));
+}
+
+// Example usage
+const aggregatedData = aggregateDataByAgeGroup([
+        {
+            "User_ID": "1",
+            "Learners": "Lingotran_Admin",
+            "User_Age": null,
+            "Total_no_of_Strong_Words": null,
+            "Total_no_of_Medium_Words": null,
+            "Total_no_of_Weak_Words": null
+        },
+        {
+            "User_ID": "2",
+            "Learners": "Lingotran",
+            "User_Age": null,
+            "Total_no_of_Strong_Words": "16",
+            "Total_no_of_Medium_Words": "4",
+            "Total_no_of_Weak_Words": "0"
+        },
+        {
+            "User_ID": "3",
+            "Learners": "Instructor",
+            "User_Age": "26-35",
+            "Total_no_of_Strong_Words": null,
+            "Total_no_of_Medium_Words": null,
+            "Total_no_of_Weak_Words": null
+        },
+        {
+            "User_ID": "4",
+            "Learners": "Prashanth UX",
+            "User_Age": "18-25",
+            "Total_no_of_Strong_Words": "22",
+            "Total_no_of_Medium_Words": "16",
+            "Total_no_of_Weak_Words": "13"
+        },
+        {
+            "User_ID": "5",
+            "Learners": "chandan",
+            "User_Age": "26-35",
+            "Total_no_of_Strong_Words": "12",
+            "Total_no_of_Medium_Words": "1",
+            "Total_no_of_Weak_Words": "1"
+        },
+        {
+            "User_ID": "7",
+            "Learners": "Satish Krishna M",
+            "User_Age": "46+",
+            "Total_no_of_Strong_Words": "12",
+            "Total_no_of_Medium_Words": "0",
+            "Total_no_of_Weak_Words": "0"
+        },
+        {
+            "User_ID": "12",
+            "Learners": "Satyajeet",
+            "User_Age": "26-35",
+            "Total_no_of_Strong_Words": null,
+            "Total_no_of_Medium_Words": null,
+            "Total_no_of_Weak_Words": null
+        },
+        {
+            "User_ID": "13",
+            "Learners": "Dhanya",
+            "User_Age": "26-35",
+            "Total_no_of_Strong_Words": "3",
+            "Total_no_of_Medium_Words": "0",
+            "Total_no_of_Weak_Words": "0"
+        },
+        {
+            "User_ID": "15",
+            "Learners": "QA",
+            "User_Age": "18-25",
+            "Total_no_of_Strong_Words": "10",
+            "Total_no_of_Medium_Words": "2",
+            "Total_no_of_Weak_Words": "15"
+        },
+        {
+            "User_ID": "16",
+            "Learners": "Test taker",
+            "User_Age": "18-25",
+            "Total_no_of_Strong_Words": null,
+            "Total_no_of_Medium_Words": null,
+            "Total_no_of_Weak_Words": null
+        },
+        {
+            "User_ID": "17",
+            "Learners": "Maithri",
+            "User_Age": "18-25",
+            "Total_no_of_Strong_Words": null,
+            "Total_no_of_Medium_Words": null,
+            "Total_no_of_Weak_Words": null
+        },
+        {
+            "User_ID": "18",
+            "Learners": "Satyajeet",
+            "User_Age": "26-35",
+            "Total_no_of_Strong_Words": null,
+            "Total_no_of_Medium_Words": null,
+            "Total_no_of_Weak_Words": null
+        },
+        {
+            "User_ID": "19",
+            "Learners": "Gayathri N",
+            "User_Age": "18-25",
+            "Total_no_of_Strong_Words": null,
+            "Total_no_of_Medium_Words": null,
+            "Total_no_of_Weak_Words": null
+        },
+        {
+            "User_ID": "21",
+            "Learners": "testing ",
+            "User_Age": "26-35",
+            "Total_no_of_Strong_Words": null,
+            "Total_no_of_Medium_Words": null,
+            "Total_no_of_Weak_Words": null
+        },
+        {
+            "User_ID": "22",
+            "Learners": "lingotran_TestTaker",
+            "User_Age": "26-35",
+            "Total_no_of_Strong_Words": null,
+            "Total_no_of_Medium_Words": null,
+            "Total_no_of_Weak_Words": null
+        },
+        {
+            "User_ID": "24",
+            "Learners": "Chethanraj D S",
+            "User_Age": "26-35",
+            "Total_no_of_Strong_Words": null,
+            "Total_no_of_Medium_Words": null,
+            "Total_no_of_Weak_Words": null
+        },
+        {
+            "User_ID": "27",
+            "Learners": "suchithra.eranna",
+            "User_Age": "26-35",
+            "Total_no_of_Strong_Words": "119",
+            "Total_no_of_Medium_Words": "19",
+            "Total_no_of_Weak_Words": "28"
+        },
+        {
+            "User_ID": "28",
+            "Learners": "sankalpa",
+            "User_Age": "26-35",
+            "Total_no_of_Strong_Words": null,
+            "Total_no_of_Medium_Words": null,
+            "Total_no_of_Weak_Words": null
+        },
+        {
+            "User_ID": "32",
+            "Learners": "Learner 2",
+            "User_Age": "26-35",
+            "Total_no_of_Strong_Words": "4",
+            "Total_no_of_Medium_Words": "1",
+            "Total_no_of_Weak_Words": "1"
+        },
+        {
+            "User_ID": "33",
+            "Learners": "Learner 3",
+            "User_Age": "26-35",
+            "Total_no_of_Strong_Words": null,
+            "Total_no_of_Medium_Words": null,
+            "Total_no_of_Weak_Words": null
+        },
+        {
+            "User_ID": "34",
+            "Learners": "Lingotran 2",
+            "User_Age": "26-35",
+            "Total_no_of_Strong_Words": null,
+            "Total_no_of_Medium_Words": null,
+            "Total_no_of_Weak_Words": null
+        },
+        {
+            "User_ID": "35",
+            "Learners": "Sagar",
+            "User_Age": "26-35",
+            "Total_no_of_Strong_Words": null,
+            "Total_no_of_Medium_Words": null,
+            "Total_no_of_Weak_Words": null
+        },
+        {
+            "User_ID": "36",
+            "Learners": "sankalpa d",
+            "User_Age": "26-35",
+            "Total_no_of_Strong_Words": null,
+            "Total_no_of_Medium_Words": null,
+            "Total_no_of_Weak_Words": null
+        },
+        {
+            "User_ID": "37",
+            "Learners": "suchii",
+            "User_Age": "18-25",
+            "Total_no_of_Strong_Words": null,
+            "Total_no_of_Medium_Words": null,
+            "Total_no_of_Weak_Words": null
+        },
+        {
+            "User_ID": "42",
+            "Learners": "hARSHAN",
+            "User_Age": "26-35",
+            "Total_no_of_Strong_Words": null,
+            "Total_no_of_Medium_Words": null,
+            "Total_no_of_Weak_Words": null
+        },
+        {
+            "User_ID": "44",
+            "Learners": "rekha",
+            "User_Age": "18-25",
+            "Total_no_of_Strong_Words": null,
+            "Total_no_of_Medium_Words": null,
+            "Total_no_of_Weak_Words": null
+        },
+        {
+            "User_ID": "50",
+            "Learners": "Suchii",
+            "User_Age": "26-35",
+            "Total_no_of_Strong_Words": null,
+            "Total_no_of_Medium_Words": null,
+            "Total_no_of_Weak_Words": null
+        },
+        {
+            "User_ID": "52",
+            "Learners": "Satty",
+            "User_Age": "26-35",
+            "Total_no_of_Strong_Words": null,
+            "Total_no_of_Medium_Words": null,
+            "Total_no_of_Weak_Words": null
+        },
+        {
+            "User_ID": "53",
+            "Learners": "11",
+            "User_Age": "26-35",
+            "Total_no_of_Strong_Words": null,
+            "Total_no_of_Medium_Words": null,
+            "Total_no_of_Weak_Words": null
+        },
+        {
+            "User_ID": "54",
+            "Learners": "rekha",
+            "User_Age": "18-25",
+            "Total_no_of_Strong_Words": "0",
+            "Total_no_of_Medium_Words": "0",
+            "Total_no_of_Weak_Words": "5"
+        },
+        {
+            "User_ID": "55",
+            "Learners": "rekha",
+            "User_Age": "26-35",
+            "Total_no_of_Strong_Words": null,
+            "Total_no_of_Medium_Words": null,
+            "Total_no_of_Weak_Words": null
+        },
+        {
+            "User_ID": "56",
+            "Learners": "hfghf",
+            "User_Age": "18-25",
+            "Total_no_of_Strong_Words": null,
+            "Total_no_of_Medium_Words": null,
+            "Total_no_of_Weak_Words": null
+        },
+        {
+            "User_ID": "57",
+            "Learners": "fghfghghf",
+            "User_Age": "18-25",
+            "Total_no_of_Strong_Words": null,
+            "Total_no_of_Medium_Words": null,
+            "Total_no_of_Weak_Words": null
+        },
+        {
+            "User_ID": "58",
+            "Learners": "asdasd",
+            "User_Age": "18-25",
+            "Total_no_of_Strong_Words": null,
+            "Total_no_of_Medium_Words": null,
+            "Total_no_of_Weak_Words": null
+        },
+        {
+            "User_ID": "59",
+            "Learners": "rqwqwr",
+            "User_Age": "18-25",
+            "Total_no_of_Strong_Words": null,
+            "Total_no_of_Medium_Words": null,
+            "Total_no_of_Weak_Words": null
+        },
+        {
+            "User_ID": "60",
+            "Learners": "ghfg",
+            "User_Age": "18-25",
+            "Total_no_of_Strong_Words": null,
+            "Total_no_of_Medium_Words": null,
+            "Total_no_of_Weak_Words": null
+        },
+        {
+            "User_ID": "61",
+            "Learners": "asadsd",
+            "User_Age": "18-25",
+            "Total_no_of_Strong_Words": null,
+            "Total_no_of_Medium_Words": null,
+            "Total_no_of_Weak_Words": null
+        },
+        {
+            "User_ID": "62",
+            "Learners": "rekha",
+            "User_Age": "18-25",
+            "Total_no_of_Strong_Words": null,
+            "Total_no_of_Medium_Words": null,
+            "Total_no_of_Weak_Words": null
+        },
+        {
+            "User_ID": "63",
+            "Learners": "rekha",
+            "User_Age": "18-25",
+            "Total_no_of_Strong_Words": null,
+            "Total_no_of_Medium_Words": null,
+            "Total_no_of_Weak_Words": null
+        },
+        {
+            "User_ID": "64",
+            "Learners": "rekha",
+            "User_Age": "18-25",
+            "Total_no_of_Strong_Words": null,
+            "Total_no_of_Medium_Words": null,
+            "Total_no_of_Weak_Words": null
+        },
+        {
+            "User_ID": "65",
+            "Learners": "rekha",
+            "User_Age": "18-25",
+            "Total_no_of_Strong_Words": null,
+            "Total_no_of_Medium_Words": null,
+            "Total_no_of_Weak_Words": null
+        },
+        {
+            "User_ID": "66",
+            "Learners": "rekha",
+            "User_Age": "18-25",
+            "Total_no_of_Strong_Words": null,
+            "Total_no_of_Medium_Words": null,
+            "Total_no_of_Weak_Words": null
+        },
+        {
+            "User_ID": "67",
+            "Learners": "test",
+            "User_Age": "18-25",
+            "Total_no_of_Strong_Words": null,
+            "Total_no_of_Medium_Words": null,
+            "Total_no_of_Weak_Words": null
+        },
+        {
+            "User_ID": "68",
+            "Learners": "rekha",
+            "User_Age": "18-25",
+            "Total_no_of_Strong_Words": null,
+            "Total_no_of_Medium_Words": null,
+            "Total_no_of_Weak_Words": null
+        },
+        {
+            "User_ID": "69",
+            "Learners": "rekha",
+            "User_Age": "26-35",
+            "Total_no_of_Strong_Words": null,
+            "Total_no_of_Medium_Words": null,
+            "Total_no_of_Weak_Words": null
+        },
+        {
+            "User_ID": "70",
+            "Learners": "rekha",
+            "User_Age": "18-25",
+            "Total_no_of_Strong_Words": null,
+            "Total_no_of_Medium_Words": null,
+            "Total_no_of_Weak_Words": null
+        },
+        {
+            "User_ID": "71",
+            "Learners": "qweewqqw",
+            "User_Age": "26-35",
+            "Total_no_of_Strong_Words": null,
+            "Total_no_of_Medium_Words": null,
+            "Total_no_of_Weak_Words": null
+        },
+        {
+            "User_ID": "72",
+            "Learners": "rtwtw",
+            "User_Age": "18-25",
+            "Total_no_of_Strong_Words": null,
+            "Total_no_of_Medium_Words": null,
+            "Total_no_of_Weak_Words": null
+        },
+        {
+            "User_ID": "73",
+            "Learners": "yrytrty",
+            "User_Age": "18-25",
+            "Total_no_of_Strong_Words": null,
+            "Total_no_of_Medium_Words": null,
+            "Total_no_of_Weak_Words": null
+        },
+        {
+            "User_ID": "74",
+            "Learners": "rekha",
+            "User_Age": "26-35",
+            "Total_no_of_Strong_Words": null,
+            "Total_no_of_Medium_Words": null,
+            "Total_no_of_Weak_Words": null
+        },
+        {
+            "User_ID": "75",
+            "Learners": "cvfxcv",
+            "User_Age": "26-35",
+            "Total_no_of_Strong_Words": null,
+            "Total_no_of_Medium_Words": null,
+            "Total_no_of_Weak_Words": null
+        },
+        {
+            "User_ID": "76",
+            "Learners": "rtertert",
+            "User_Age": "18-25",
+            "Total_no_of_Strong_Words": null,
+            "Total_no_of_Medium_Words": null,
+            "Total_no_of_Weak_Words": null
+        },
+        {
+            "User_ID": "77",
+            "Learners": "shanu",
+            "User_Age": "18-25",
+            "Total_no_of_Strong_Words": null,
+            "Total_no_of_Medium_Words": null,
+            "Total_no_of_Weak_Words": null
+        },
+        {
+            "User_ID": "78",
+            "Learners": "shanu1",
+            "User_Age": "18-25",
+            "Total_no_of_Strong_Words": null,
+            "Total_no_of_Medium_Words": null,
+            "Total_no_of_Weak_Words": null
+        },
+        {
+            "User_ID": "79",
+            "Learners": "shanu123",
+            "User_Age": "18-25",
+            "Total_no_of_Strong_Words": null,
+            "Total_no_of_Medium_Words": null,
+            "Total_no_of_Weak_Words": null
+        },
+        {
+            "User_ID": "80",
+            "Learners": "wwww",
+            "User_Age": "26-35",
+            "Total_no_of_Strong_Words": null,
+            "Total_no_of_Medium_Words": null,
+            "Total_no_of_Weak_Words": null
+        },
+        {
+            "User_ID": "81",
+            "Learners": "yyyuy",
+            "User_Age": "18-25",
+            "Total_no_of_Strong_Words": null,
+            "Total_no_of_Medium_Words": null,
+            "Total_no_of_Weak_Words": null
+        },
+        {
+            "User_ID": "82",
+            "Learners": "cvcv",
+            "User_Age": "18-25",
+            "Total_no_of_Strong_Words": null,
+            "Total_no_of_Medium_Words": null,
+            "Total_no_of_Weak_Words": null
+        },
+        {
+            "User_ID": "83",
+            "Learners": "gfgghv",
+            "User_Age": "26-35",
+            "Total_no_of_Strong_Words": null,
+            "Total_no_of_Medium_Words": null,
+            "Total_no_of_Weak_Words": null
+        },
+        {
+            "User_ID": "84",
+            "Learners": "gfdghf",
+            "User_Age": "26-35",
+            "Total_no_of_Strong_Words": null,
+            "Total_no_of_Medium_Words": null,
+            "Total_no_of_Weak_Words": null
+        },
+        {
+            "User_ID": "85",
+            "Learners": "csdxc",
+            "User_Age": "36-45",
+            "Total_no_of_Strong_Words": null,
+            "Total_no_of_Medium_Words": null,
+            "Total_no_of_Weak_Words": null
+        },
+        {
+            "User_ID": "86",
+            "Learners": "cfds",
+            "User_Age": "26-35",
+            "Total_no_of_Strong_Words": null,
+            "Total_no_of_Medium_Words": null,
+            "Total_no_of_Weak_Words": null
+        },
+        {
+            "User_ID": "87",
+            "Learners": "cvcv",
+            "User_Age": "46+",
+            "Total_no_of_Strong_Words": null,
+            "Total_no_of_Medium_Words": null,
+            "Total_no_of_Weak_Words": null
+        },
+        {
+            "User_ID": "88",
+            "Learners": "User_J1",
+            "User_Age": "26-35",
+            "Total_no_of_Strong_Words": null,
+            "Total_no_of_Medium_Words": null,
+            "Total_no_of_Weak_Words": null
+        },
+        {
+            "User_ID": "89",
+            "Learners": "demo98",
+            "User_Age": "18-25",
+            "Total_no_of_Strong_Words": null,
+            "Total_no_of_Medium_Words": null,
+            "Total_no_of_Weak_Words": null
+        },
+        {
+            "User_ID": "90",
+            "Learners": "Lingotran User",
+            "User_Age": "36-45",
+            "Total_no_of_Strong_Words": null,
+            "Total_no_of_Medium_Words": null,
+            "Total_no_of_Weak_Words": null
+        },
+        {
+            "User_ID": "91",
+            "Learners": "Portuguese",
+            "User_Age": "26-35",
+            "Total_no_of_Strong_Words": null,
+            "Total_no_of_Medium_Words": null,
+            "Total_no_of_Weak_Words": null
+        },
+        {
+            "User_ID": "92",
+            "Learners": "Spanish",
+            "User_Age": "26-35",
+            "Total_no_of_Strong_Words": null,
+            "Total_no_of_Medium_Words": null,
+            "Total_no_of_Weak_Words": null
+        },
+        {
+            "User_ID": "93",
+            "Learners": "Nali Kali",
+            "User_Age": "26-35",
+            "Total_no_of_Strong_Words": null,
+            "Total_no_of_Medium_Words": null,
+            "Total_no_of_Weak_Words": null
+        },
+        {
+            "User_ID": "94",
+            "Learners": "Assessment",
+            "User_Age": "26-35",
+            "Total_no_of_Strong_Words": null,
+            "Total_no_of_Medium_Words": null,
+            "Total_no_of_Weak_Words": null
+        },
+        {
+            "User_ID": "95",
+            "Learners": "demo111",
+            "User_Age": "26-35",
+            "Total_no_of_Strong_Words": null,
+            "Total_no_of_Medium_Words": null,
+            "Total_no_of_Weak_Words": null
+        },
+        {
+            "User_ID": "96",
+            "Learners": "rekha",
+            "User_Age": "26-35",
+            "Total_no_of_Strong_Words": null,
+            "Total_no_of_Medium_Words": null,
+            "Total_no_of_Weak_Words": null
+        },
+        {
+            "User_ID": "97",
+            "Learners": "Kaushik N D",
+            "User_Age": "26-35",
+            "Total_no_of_Strong_Words": "1",
+            "Total_no_of_Medium_Words": "1",
+            "Total_no_of_Weak_Words": "1"
+        },
+        {
+            "User_ID": "98",
+            "Learners": "Gayathri Priya C V",
+            "User_Age": "18-25",
+            "Total_no_of_Strong_Words": "0",
+            "Total_no_of_Medium_Words": "8",
+            "Total_no_of_Weak_Words": "3"
+        },
+        {
+            "User_ID": "99",
+            "Learners": "French Learner",
+            "User_Age": "36-45",
+            "Total_no_of_Strong_Words": null,
+            "Total_no_of_Medium_Words": null,
+            "Total_no_of_Weak_Words": null
+        },
+        {
+            "User_ID": "100",
+            "Learners": "Test Learner -1",
+            "User_Age": "18-25",
+            "Total_no_of_Strong_Words": "274",
+            "Total_no_of_Medium_Words": "34",
+            "Total_no_of_Weak_Words": "16"
+        },
+        {
+            "User_ID": "101",
+            "Learners": "Dhanyagmail",
+            "User_Age": "26-35",
+            "Total_no_of_Strong_Words": null,
+            "Total_no_of_Medium_Words": null,
+            "Total_no_of_Weak_Words": null
+        },
+        {
+            "User_ID": "102",
+            "Learners": "Harshan",
+            "User_Age": "26-35",
+            "Total_no_of_Strong_Words": null,
+            "Total_no_of_Medium_Words": null,
+            "Total_no_of_Weak_Words": null
+        },
+        {
+            "User_ID": "103",
+            "Learners": "TestLearner1-c",
+            "User_Age": "18-25",
+            "Total_no_of_Strong_Words": "11",
+            "Total_no_of_Medium_Words": "1",
+            "Total_no_of_Weak_Words": "0"
+        },
+        {
+            "User_ID": "104",
+            "Learners": "French Test Taker",
+            "User_Age": "26-35",
+            "Total_no_of_Strong_Words": null,
+            "Total_no_of_Medium_Words": null,
+            "Total_no_of_Weak_Words": null
+        },
+        {
+            "User_ID": "105",
+            "Learners": "test11",
+            "User_Age": "26-35",
+            "Total_no_of_Strong_Words": null,
+            "Total_no_of_Medium_Words": null,
+            "Total_no_of_Weak_Words": null
+        },
+        {
+            "User_ID": "106",
+            "Learners": "Satish Test taker",
+            "User_Age": "26-35",
+            "Total_no_of_Strong_Words": null,
+            "Total_no_of_Medium_Words": null,
+            "Total_no_of_Weak_Words": null
+        },
+        {
+            "User_ID": "107",
+            "Learners": "Satish Test taker",
+            "User_Age": "26-35",
+            "Total_no_of_Strong_Words": null,
+            "Total_no_of_Medium_Words": null,
+            "Total_no_of_Weak_Words": null
+        },
+        {
+            "User_ID": "108",
+            "Learners": "lingotran_user",
+            "User_Age": "46+",
+            "Total_no_of_Strong_Words": null,
+            "Total_no_of_Medium_Words": null,
+            "Total_no_of_Weak_Words": null
+        },
+        {
+            "User_ID": "109",
+            "Learners": "Yamini",
+            "User_Age": "26-35",
+            "Total_no_of_Strong_Words": null,
+            "Total_no_of_Medium_Words": null,
+            "Total_no_of_Weak_Words": null
+        },
+        {
+            "User_ID": "110",
+            "Learners": "123",
+            "User_Age": "26-35",
+            "Total_no_of_Strong_Words": null,
+            "Total_no_of_Medium_Words": null,
+            "Total_no_of_Weak_Words": null
+        },
+        {
+            "User_ID": "111",
+            "Learners": "Chethanraj D S - Learner",
+            "User_Age": "26-35",
+            "Total_no_of_Strong_Words": null,
+            "Total_no_of_Medium_Words": null,
+            "Total_no_of_Weak_Words": null
+        },
+        {
+            "User_ID": "112",
+            "Learners": "Saanvi ",
+            "User_Age": "10-12",
+            "Total_no_of_Strong_Words": null,
+            "Total_no_of_Medium_Words": null,
+            "Total_no_of_Weak_Words": null
+        },
+        {
+            "User_ID": "113",
+            "Learners": "instructor2",
+            "User_Age": "18-25",
+            "Total_no_of_Strong_Words": null,
+            "Total_no_of_Medium_Words": null,
+            "Total_no_of_Weak_Words": null
+        }
+    ]
+);
+const chartData = {
+    categories: aggregatedData.map(item => item.ageGroup),
+    series: [
+        { name: 'Strong Words', data: aggregatedData.map(item => item.strongWords) },
+        { name: 'Medium Words', data: aggregatedData.map(item => item.mediumWords) },
+        { name: 'Weak Words', data: aggregatedData.map(item => item.weakWords) }
+    ]
+};
+
+console.log(chartData);

@@ -4,7 +4,7 @@ import { Pagination, Stack } from "@mui/material";
 
 function CustomPagination({ count, page, onPageChange }) {
   // Number of pages to show in the pagination range
-  const range = 5;
+  const range = 10;
   const halfRange = Math.floor(range / 2);
 
   // Calculate the start and end page numbers for the pagination range

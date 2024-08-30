@@ -9,7 +9,7 @@ function Layout() {
   const [currentPage, setCurrentPage] = useState(1);
 
   // Adjust this array to have 20 pages
-  const pages = Array.from({ length: 20 }, (_, index) => `/Page${index + 1}`);
+  const pages = Array.from({ length: 50 }, (_, index) => `/Page${index + 1}`);
 
   useEffect(() => {
     const currentPageIndex = pages.indexOf(location.pathname) + 1;

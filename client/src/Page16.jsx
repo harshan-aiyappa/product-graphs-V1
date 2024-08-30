@@ -94,7 +94,8 @@ const Page16 = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('https://your-api-url.com/data');  // Replace with your actual API URL
+        const response = await fetch('http://192.168.29.50:8081/api/getgraph_coursedistribution');  // Replace with your actual API URL
+        console.log("response :",response)
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
