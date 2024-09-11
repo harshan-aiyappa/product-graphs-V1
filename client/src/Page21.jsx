@@ -1,6 +1,15 @@
 import React, { useState, useEffect } from "react";
 import ApexCharts from "react-apexcharts";
 import axios from "axios";
+import {
+  Container,
+  Typography,
+  Paper,
+  MenuItem,
+  Select,
+  FormControl,
+  InputLabel,
+} from "@mui/material";
 
 // Function to transform data into a format suitable for ApexCharts
 const transformData = (data) => {
@@ -38,7 +47,7 @@ const Page21 = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://192.168.29.50:8081/api/getgraph_languageproficiencyovertime?usrid=${usrid}`
+          `http://10.10.20.73:8081/api/getgraph_languageproficiencyovertime?usrid=${usrid}`
         );
         setData(response.data);
       } catch (error) {
@@ -100,37 +109,77 @@ const Page21 = () => {
   };
 
   return (
-    <div>
-      <h2>Language Proficiency Over Time</h2>
-      <select value={usrid} onChange={(e) => setUsrid(e.target.value)}>
-        {/* Dropdown options for user IDs */}
-        {[27, 15, 5].map((id) => (
-          <option key={id} value={id}>
-            User {id}
-          </option>
-        ))}
-      </select>
-      {data ? (
-        <ApexCharts
-          options={options}
-          series={series}
-          type="line"
-          height={600}
-        />
-      ) : (
-        <p>Loading...</p>
-      )}
-    </div>
+    <Container
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        minWidth: "100%",
+        alignItems: "center",
+        p: 5,
+        backgroundColor: "background.default",
+      }}
+    >
+      <Paper
+        elevation={5}
+        sx={{
+          padding: { xs: 2, sm: 3, md: 4 }, // Responsive padding
+          width: "100%",
+          minHeight: "100%",
+          position: "relative",
+        }}
+      >
+        <Typography
+          variant="h5"
+          sx={{
+            position: "absolute",
+            top: 1,
+            right: 0,
+            background: "#4E4F50",
+            color: "#E2DED0",
+            padding: "5px 10px",
+            borderBottomLeftRadius: ".5rem",
+            fontSize: { xs: "0.75rem", sm: "1rem" }, // Responsive font size
+          }}
+        >
+          Apex React
+        </Typography>
+        <Typography
+          variant="h4"
+          align="center"
+          sx={{ marginTop: { xs: 1, sm: 2, md: 3 } }} // Responsive margin
+        >
+          Language Proficiency Over Time
+        </Typography>
+        <FormControl variant="outlined" sx={{ width: "300px" }}>
+          <InputLabel id="user-id-label">Select User</InputLabel>
+          <Select
+            labelId="user-id-label"
+            id="user-id"
+            value={usrid}
+            onChange={(e) => setUsrid(e.target.value)}
+            label="Select User"
+          >
+            {[27, 15, 5].map((id) => (
+              <MenuItem key={id} value={id}>
+                User {id}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+        {data ? (
+          <ApexCharts
+            options={options}
+            series={series}
+            type="line"
+            height={600}
+          />
+        ) : (
+          <p>Loading...</p>
+        )}
+      </Paper>
+    </Container>
   );
 };
 
-// Use the Page21 component
-const App = () => {
-  return (
-    <div className="App" style={{ padding: "2rem",boxShadow: "rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset" }}>
-      <Page21 />
-    </div>
-  );
-};
-
-export default App;
+export default Page21;

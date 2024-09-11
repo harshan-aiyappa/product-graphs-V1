@@ -1,7 +1,15 @@
 import React, { useEffect, useState } from "react";
 import ApexCharts from "react-apexcharts";
 import axios from "axios";
-
+import {
+  Container,
+  Typography,
+  Paper,
+  MenuItem,
+  Select,
+  FormControl,
+  InputLabel,
+} from "@mui/material";
 const Page20 = () => {
   // Function to aggregate data by age group
   function aggregateDataByAgeGroup(data) {
@@ -42,7 +50,7 @@ const Page20 = () => {
   useEffect(() => {
     axios
       .get(
-        "http://192.168.29.50:8081/api/getgraph_Worddistributionamongusers",
+        "http://10.10.20.73:8081/api/getgraph_Worddistributionamongusers",
         { timeout: 10000 }
       )
       .then((response) => {
@@ -132,25 +140,60 @@ const Page20 = () => {
   };
 
   return (
-    <div
-      style={{
-        padding: "2rem",
-        boxShadow:
-          "rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset",
+    <Container
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        minWidth: "100%",
+        alignItems: "center",
+        p: 5,
+        backgroundColor: "background.default",
       }}
     >
-      <h2>Stacked Column Chart</h2>
-      {loading ? (
-        <p>Loading...</p>
-      ) : (
-        <ApexCharts
-          options={chartOptions}
-          series={chartData.series}
-          type="bar"
-          height={600}
-        />
-      )}
-    </div>
+      <Paper
+        elevation={5}
+        sx={{
+          padding: { xs: 2, sm: 3, md: 4 }, // Responsive padding
+          width: "100%",
+          minHeight: "100%",
+          position: "relative",
+        }}
+      >
+        <Typography
+          variant="h5"
+          sx={{
+            position: "absolute",
+            top: 1,
+            right: 0,
+            background: "#4E4F50",
+            color: "#E2DED0",
+            padding: "5px 10px",
+            borderBottomLeftRadius: ".5rem",
+            fontSize: { xs: "0.75rem", sm: "1rem" }, // Responsive font size
+          }}
+        >
+          Apex React
+        </Typography>
+        <Typography
+          variant="h4"
+          align="center"
+          sx={{ marginTop: { xs: 1, sm: 2, md: 3 } }} // Responsive margin
+        >
+          Demographic Distribution of Prompts
+        </Typography>
+        {loading ? (
+          <p>Loading...</p>
+        ) : (
+          <ApexCharts
+            options={chartOptions}
+            series={chartData.series}
+            type="bar"
+            height={600}
+          />
+        )}
+      </Paper>
+    </Container>
   );
 };
 

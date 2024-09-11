@@ -28,6 +28,13 @@ import Page18 from "./Page18";
 import Page19 from "./Page19";
 import Page20 from "./Page20";
 import Page21 from "./Page21";
+import Page22 from "./Page22";
+import Page23 from "./Page23";
+import Page24 from "./Page24";
+import Page25 from "./Page25";
+import Page26 from "./Page26";
+import Page27 from "./Page27";
+import Page28 from "./Page28";
 
 function App() {
   return (
@@ -56,6 +63,13 @@ function App() {
           <Route path="Page19" element={<Page19 />} />
           <Route path="Page20" element={<Page20 />} />
           <Route path="Page21" element={<Page21 />} />
+          <Route path="Page22" element={<Page22 />} />
+          <Route path="Page23" element={<Page23 />} />
+          <Route path="Page24" element={<Page24 />} />
+          <Route path="Page25" element={<Page25 />} />
+          <Route path="Page26" element={<Page26 />} />
+          <Route path="Page27" element={<Page27 />} />
+          <Route path="Page28" element={<Page28 />} />
         </Route>
       </Routes>
     </Router>

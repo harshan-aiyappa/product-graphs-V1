@@ -76,16 +76,15 @@ const options = {
 function Page2() {
   return (
     <Container
-      sx={{
-        border: "1px solid red",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        minWidth: "100%",
-        alignItems: "center",
-        minHeight: "90vh",
-        backgroundColor: "background.default",
-      }}
+    sx={{
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+      minWidth: "100%",
+      alignItems: "center",
+      p: 5,
+      backgroundColor: "background.default",
+    }}
     >
       <Paper
         elevation={5}

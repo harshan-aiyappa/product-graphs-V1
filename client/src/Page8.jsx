@@ -39,21 +39,21 @@ function Page8() {
 
   return (
     <Container
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        minHeight: '80%',
-        backgroundColor: 'background.default'
-      }}
+    sx={{
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+      minWidth: "100%",
+      alignItems: "center",
+      p: 5,
+      backgroundColor: "background.default",
+    }}
     >
       <Paper
         elevation={5}
         style={{
           padding: '20px',
           width: '100%',
-          maxWidth: '800px',
           marginTop: '20px',
           position: 'relative'
         }}

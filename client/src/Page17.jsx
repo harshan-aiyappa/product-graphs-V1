@@ -10,6 +10,7 @@ import {
   Select,
   FormControl,
   InputLabel,
+  Paper,
 } from "@mui/material";
 
 const Page17 = () => {
@@ -31,7 +32,7 @@ const Page17 = () => {
     setLoading(true);
     axios
       .get(
-        `http://192.168.29.50:8081/api/getgraph_leanerrubricskill?usrid=${userId}`
+        `http://10.10.20.73:8081/api/getgraph_leanerrubricskill?usrid=${userId}`
       )
       .then((response) => {
         const data = response.data.leanerrubricskill;
@@ -86,7 +87,7 @@ const Page17 = () => {
 
     axios
       .get(
-        `http://192.168.29.50:8081/api/getgraph_leanerrubricskill?usrid=${selectedUserId}`
+        `http://10.10.20.73:8081/api/getgraph_leanerrubricskill?usrid=${selectedUserId}`
       )
       .then((response) => {
         const data = response.data.leanerrubricskill.find(
@@ -107,192 +108,221 @@ const Page17 = () => {
   return (
     <Container
       sx={{
-        padding: "1rem",
-        boxShadow:
-          "rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        minWidth: "100%",
+        alignItems: "center",
+        p: 5,
+        backgroundColor: "background.default",
       }}
     >
-      <Typography
-        variant="h4"
-        gutterBottom
-        sx={{ fontWeight: "bold", color: "#410099" }}
+      <Paper
+        elevation={5}
+        sx={{
+          padding: { xs: 2, sm: 3, md: 4 }, // Responsive padding
+          width: "100%",
+          minHeight: "100%",
+          position: "relative",
+        }}
       >
-        Learner Rubric Skill Radar
-      </Typography>
-
-      <FormControl fullWidth sx={{ marginBottom: "20px" }}>
-        <InputLabel>User ID</InputLabel>
-        <Select
-          value={selectedUserId}
-          label="User ID"
-          onChange={handleUserIdChange}
-        >
-          {userIds.map((id) => (
-            <MenuItem key={id} value={id}>
-              {id}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
-
-      <FormControl fullWidth sx={{ marginBottom: "20px" }}>
-        <InputLabel>Lesson Journey ID</InputLabel>
-        <Select
-          value={selectedLessonJourneyId}
-          label="Lesson Journey ID"
-          onChange={handleLessonJourneyChange}
-        >
-          {lessonJourneyIds.map((id) => (
-            <MenuItem key={id} value={id}>
-              {id}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
-
-      {loading ? (
-        <Box
+        <Typography
+          variant="h5"
           sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            height: "400px",
+            position: "absolute",
+            top: 1,
+            right: 0,
+            background: "#4E4F50",
+            color: "#E2DED0",
+            padding: "5px 10px",
+            borderBottomLeftRadius: ".5rem",
+            fontSize: { xs: "0.75rem", sm: "1rem" }, // Responsive font size
           }}
         >
-          <CircularProgress />
-        </Box>
-      ) : (
-        <Chart
-          options={{
-            chart: {
-              type: "radar",
-              toolbar: {
-                show: true,
+          Apex React
+        </Typography>
+        <Typography
+          variant="h4"
+          align="center"
+          sx={{ marginTop: { xs: 1, sm: 2, md: 3 } }} // Responsive margin
+        >
+          Learner Rubric Skill Radar
+        </Typography>
+
+        <FormControl sx={{ width: "100px", marginRight: "10px" }}>
+          <InputLabel>User ID</InputLabel>
+          <Select
+            value={selectedUserId}
+            label="User ID"
+            onChange={handleUserIdChange}
+          >
+            {userIds.map((id) => (
+              <MenuItem key={id} value={id}>
+                {id}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+
+        <FormControl sx={{ width: "120px" }}>
+          <InputLabel>Lesson Journey ID</InputLabel>
+          <Select
+            value={selectedLessonJourneyId}
+            label="Lesson Journey ID"
+            onChange={handleLessonJourneyChange}
+          >
+            {lessonJourneyIds.map((id) => (
+              <MenuItem key={id} value={id}>
+                {id}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+
+        {loading ? (
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              height: "400px",
+            }}
+          >
+            <CircularProgress />
+          </Box>
+        ) : (
+          <Chart
+            options={{
+              chart: {
+                type: "radar",
+                toolbar: {
+                  show: true,
+                },
+                animations: {
+                  enabled: true,
+                  easing: "easeinout",
+                  speed: 800,
+                  animateGradually: {
+                    enabled: true,
+                    delay: 150,
+                  },
+                  dynamicAnimation: {
+                    enabled: true,
+                    speed: 350,
+                  },
+                },
               },
-              animations: {
+              xaxis: {
+                categories: chartData.categories,
+                labels: {
+                  style: {
+                    fontSize: "14px",
+                    fontWeight: "bold",
+                    colors: ["#410099"],
+                  },
+                },
+              },
+              yaxis: {
+                labels: {
+                  formatter: (val) => val.toFixed(2),
+                  style: {
+                    fontSize: "12px",
+                    fontWeight: "bold",
+                    colors: ["#333"],
+                  },
+                },
+                tickAmount: 7,
+              },
+              dataLabels: {
                 enabled: true,
-                easing: "easeinout",
-                speed: 800,
-                animateGradually: {
+                background: {
                   enabled: true,
-                  delay: 150,
+                  foreColor: "#410099",
+                  borderRadius: 2,
+                  borderWidth: 0,
                 },
-                dynamicAnimation: {
-                  enabled: true,
-                  speed: 350,
-                },
-              },
-            },
-            xaxis: {
-              categories: chartData.categories,
-              labels: {
-                style: {
-                  fontSize: "14px",
-                  fontWeight: "bold",
-                  colors: ["#410099"],
-                },
-              },
-            },
-            yaxis: {
-              labels: {
-                formatter: (val) => val.toFixed(2),
                 style: {
                   fontSize: "12px",
-                  fontWeight: "bold",
-                  colors: ["#333"],
+                  colors: ["#fff"],
                 },
               },
-              tickAmount: 7,
-            },
-            dataLabels: {
-              enabled: true,
-              background: {
-                enabled: true,
-                foreColor: "#410099",
-                borderRadius: 2,
-                borderWidth: 0,
+              plotOptions: {
+                radar: {
+                  size: 250,
+                  polygons: {
+                    strokeColor: "#e9e9e9",
+                    fill: {
+                      colors: ["#f8f8f8", "#fff"],
+                    },
+                  },
+                },
               },
-              style: {
-                fontSize: "12px",
+              stroke: {
+                show: true,
+                width: 2,
+                colors: ["#410099"],
+              },
+              fill: {
+                opacity: 0.2,
+                colors: ["#410099"],
+              },
+              markers: {
+                size: 5,
                 colors: ["#fff"],
+                strokeColor: "#410099",
+                strokeWidth: 2,
               },
-            },
-            plotOptions: {
-              radar: {
-                size: 250,
-                polygons: {
-                  strokeColor: "#e9e9e9",
-                  fill: {
-                    colors: ["#f8f8f8", "#fff"],
-                  },
+              tooltip: {
+                theme: "dark",
+                y: {
+                  formatter: (val) => val.toFixed(2),
                 },
               },
-            },
-            stroke: {
-              show: true,
-              width: 2,
-              colors: ["#410099"],
-            },
-            fill: {
-              opacity: 0.2,
-              colors: ["#410099"],
-            },
-            markers: {
-              size: 5,
-              colors: ["#fff"],
-              strokeColor: "#410099",
-              strokeWidth: 2,
-            },
-            tooltip: {
-              theme: "dark",
-              y: {
-                formatter: (val) => val.toFixed(2),
-              },
-            },
-            responsive: [
-              {
-                breakpoint: 768,
-                options: {
-                  chart: {
-                    height: 500,
-                  },
-                  xaxis: {
-                    labels: {
-                      style: {
-                        fontSize: "12px",
+              responsive: [
+                {
+                  breakpoint: 768,
+                  options: {
+                    chart: {
+                      height: 500,
+                    },
+                    xaxis: {
+                      labels: {
+                        style: {
+                          fontSize: "12px",
+                        },
                       },
                     },
-                  },
-                  markers: {
-                    size: 3,
-                  },
-                },
-              },
-              {
-                breakpoint: 480,
-                options: {
-                  chart: {
-                    height: 500,
-                  },
-                  xaxis: {
-                    labels: {
-                      style: {
-                        fontSize: "12px",
-                      },
+                    markers: {
+                      size: 3,
                     },
                   },
-                  markers: {
-                    size: 2,
+                },
+                {
+                  breakpoint: 480,
+                  options: {
+                    chart: {
+                      height: 500,
+                    },
+                    xaxis: {
+                      labels: {
+                        style: {
+                          fontSize: "12px",
+                        },
+                      },
+                    },
+                    markers: {
+                      size: 2,
+                    },
                   },
                 },
-              },
-            ],
-          }}
-          series={chartData.series}
-          type="radar"
-          height={600}
-        />
-      )}
+              ],
+            }}
+            series={chartData.series}
+            type="radar"
+            height={600}
+          />
+        )}
+      </Paper>
     </Container>
   );
 };

@@ -6,6 +6,7 @@ import { PieChart, Pie, Cell, Legend, Tooltip } from "recharts"; // For Recharts
 import {
   Container,
   Typography,
+  Paper,
   Box,
   CircularProgress,
   MenuItem,
@@ -28,7 +29,7 @@ const Page19 = () => {
   useEffect(() => {
     axios
       .get(
-        "http://192.168.29.50:8081/api/getgraph_Worddistributionamongusers?usrid=27",
+        "http://10.10.20.73:8081/api/getgraph_Worddistributionamongusers?usrid=27",
         { timeout: 10000 }
       )
       .then((response) => {
@@ -158,95 +159,127 @@ const Page19 = () => {
     name: label,
     value: chartData.series[index],
   }));
-
+  const libraryLabels = {
+    echarts: "Echarts",
+    recharts: "Recharts",
+    apex: "ApexCharts",
+    highcharts: "Highcharts",
+  };
   return (
     <Container
       sx={{
-        padding: "20px",
-        textAlign: "center",
-        backgroundColor: "#f5f5f5",
-        boxShadow:
-          "rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        minWidth: "100%",
+        alignItems: "center",
+        p: 5,
+        backgroundColor: "background.default",
       }}
     >
-      <Typography
-        variant="h4"
-        gutterBottom
-        sx={{ fontWeight: "bold", color: "#410099" }}
+      <Paper
+        elevation={5}
+        sx={{
+          padding: { xs: 2, sm: 3, md: 4 }, // Responsive padding
+          width: "100%",
+          minHeight: "100%",
+          position: "relative",
+        }}
       >
-        Word Distribution Among Users
-      </Typography>
-
-      <FormControl sx={{ marginBottom: "20px" }}>
-        <InputLabel>Chart Type</InputLabel>
-        <Select
-          value={chartType}
-          onChange={handleChartTypeChange}
-          label="Chart Type"
-        >
-          <MenuItem value="apex">ApexCharts</MenuItem>
-          <MenuItem value="echarts">ECharts</MenuItem>
-          <MenuItem value="recharts">Recharts</MenuItem>
-        </Select>
-      </FormControl>
-
-      {loading ? (
-        <Box
+        <Typography
+          variant="h5"
           sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            height: "400px",
+            position: "absolute",
+            top: 1,
+            right: 0,
+            background: "#4E4F50",
+            color: "#E2DED0",
+            padding: "5px 10px",
+            borderBottomLeftRadius: ".5rem",
+            fontSize: { xs: "0.75rem", sm: "1rem" }, // Responsive font size
           }}
         >
-          <CircularProgress sx={{ color: "#410099" }} />
-        </Box>
-      ) : (
-        <>
-          {chartType === "apex" && (
-            <Chart
-              options={apexOptions}
-              series={chartData.series}
-              type="pie"
-              height={600}
-            />
-          )}
-          {chartType === "echarts" && (
-            <div ref={chartRef} style={{ height: "500px", width: "100%" }} />
-          )}
-          {chartType === "recharts" && (
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                height: "400px",
-              }}
-            >
-              <PieChart width={400} height={600}>
-                <Pie
-                  data={rechartsData}
-                  dataKey="value"
-                  cx="50%"
-                  cy="50%"
-                  outerRadius={150}
-                  fill="#8884d8"
-                  label
-                >
-                  {rechartsData.map((entry, index) => (
-                    <Cell
-                      key={`cell-${index}`}
-                      fill={["#CEDF9F", "#FFBE98", "#E8B86D"][index]}
-                    />
-                  ))}
-                </Pie>
-                <Tooltip />
-                <Legend />
-              </PieChart>
-            </Box>
-          )}
-        </>
-      )}
+          {libraryLabels[chartType]}
+        </Typography>
+        <Typography
+          variant="h4"
+          align="center"
+          sx={{ marginTop: { xs: 1, sm: 2, md: 3 } }} // Responsive margin
+        >
+          Word Distribution Among Users
+        </Typography>
+
+        <FormControl sx={{ marginBottom: "20px" }}>
+          <InputLabel>Chart Type</InputLabel>
+          <Select
+            value={chartType}
+            onChange={handleChartTypeChange}
+            label="Chart Type"
+          >
+            <MenuItem value="apex">ApexCharts</MenuItem>
+            <MenuItem value="echarts">ECharts</MenuItem>
+            <MenuItem value="recharts">Recharts</MenuItem>
+          </Select>
+        </FormControl>
+
+        {loading ? (
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              height: "600px",
+            }}
+          >
+            <CircularProgress sx={{ color: "#410099" }} />
+          </Box>
+        ) : (
+          <>
+            {chartType === "apex" && (
+              <Chart
+                options={apexOptions}
+                series={chartData.series}
+                type="pie"
+                height={600}
+              />
+            )}
+            {chartType === "echarts" && (
+              <div ref={chartRef} style={{ height: "600px", width: "100%" }} />
+            )}
+            {chartType === "recharts" && (
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  height: "600px",
+                }}
+              >
+                <PieChart width={700} height={650}>
+                  <Pie
+                    data={rechartsData}
+                    dataKey="value"
+                    cx="50%"
+                    cy="50%"
+                    outerRadius={150}
+                    fill="#8884d8"
+                    label
+                  >
+                    {rechartsData.map((entry, index) => (
+                      <Cell
+                        key={`cell-${index}`}
+                        fill={["#CEDF9F", "#FFBE98", "#E8B86D"][index]}
+                      />
+                    ))}
+                  </Pie>
+                  <Tooltip />
+                  <Legend />
+                </PieChart>
+              </Box>
+            )}
+          </>
+        )}
+      </Paper>
     </Container>
   );
 };

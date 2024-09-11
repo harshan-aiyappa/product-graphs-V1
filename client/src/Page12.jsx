@@ -63,7 +63,7 @@ const Page12 = () => {
   });
 
   const fetchData = () => {
-    const url = `http://192.168.29.50:8081/api/getgraph_popularlanguageamongusers`;
+    const url = `http://10.10.20.73:8081/api/getgraph_popularlanguageamongusers`;
 
     axios
       .get(url)
@@ -163,15 +163,15 @@ const Page12 = () => {
         justifyContent: "center",
         minWidth: "100%",
         alignItems: "center",
-        minHeight: "90vh",
+        p: 5,
         backgroundColor: "background.default",
       }}
     >
       <Paper
         elevation={5}
         sx={{
-          padding: { xs: 2, sm: 3, md: 4 },
-          width: "70%",
+          padding: { xs: 2, sm: 3, md: 4 }, // Responsive padding
+          width: "100%",
           minHeight: "100%",
           position: "relative",
         }}

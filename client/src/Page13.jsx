@@ -50,7 +50,7 @@ const Page13 = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://192.168.29.50:8081/api/gegraph_top5mostactivelearners');
+        const response = await axios.get('http://10.10.20.73:8081/api/gegraph_top5mostactivelearners');
         const data = response.data.top5mostactivelearners;
 
         const userNames = data.map(item => item.User_Name);
@@ -80,28 +80,25 @@ const Page13 = () => {
 
   return (
     <Container
+    sx={{
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+      minWidth: "100%",
+      alignItems: "center",
+      p: 5,
+      backgroundColor: "background.default",
+    }}
+  >
+    <Paper
+      elevation={5}
       sx={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        minHeight: "90vh",
-        backgroundColor: "background.default",
+        padding: { xs: 2, sm: 3, md: 4 }, // Responsive padding
+        width: "100%",
+        minHeight: "100%",
+        position: "relative",
       }}
     >
-      <Paper
-        elevation={5}
-        sx={{
-          padding: { xs: 2, sm: 3, md: 4 },
-          width: "100%",
-          maxWidth: "1200px", // Set a maximum width if needed
-          minHeight: "100%",
-          position: "relative",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
-      >
         <Typography
           variant="h5"
           sx={{
